@@ -139,7 +139,7 @@ const handleSend = async () => {
 
     } catch (error) {
         if(typingIndicator) typingIndicator.style.display = 'none';
-        const errorMsg = "Sorry, I couldn't process that. Please try again.";
+        const errorMsg = `Error: ${error.message}. Please try again.`;
         appendMessage(errorMsg, 'ai');
         if (chatDocId) {
             await updateChatResponse(chatDocId, `Error: ${error.message}`);

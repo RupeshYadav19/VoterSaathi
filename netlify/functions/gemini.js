@@ -17,8 +17,8 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // Using the stable model: gemini-1.5-flash
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        // Using the user-preferred model: gemini-3-flash-preview
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`;
         
         const response = await fetch(url, {
             method: 'POST',
@@ -31,7 +31,21 @@ exports.handler = async (event, context) => {
         const data = await response.json();
         
         if (!response.ok) {
-            return { statusCode: response.status, body: JSON.stringify(data) };
+            console.error("Gemini API Error:", data);
+            return { 
+                statusCode: response.status, 
+                body: JSON.stringify({ 
+                    error: data.error?.message || "Internal API Error",
+                    details: data
+                }) 
+            };
+        }
+
+        if (!data.candidates || !data.candidates[0]?.content?.parts?.[0]?.text) {
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ error: "Unexpected API response format", details: data })
+            };
         }
 
         const aiResponse = data.candidates[0].content.parts[0].text;
@@ -40,6 +54,7 @@ exports.handler = async (event, context) => {
             body: JSON.stringify({ response: aiResponse })
         };
     } catch (error) {
+        console.error("Proxy Function Error:", error);
         return {
             statusCode: 500,
             body: JSON.stringify({ error: "Failed to connect to Gemini API", details: error.message })

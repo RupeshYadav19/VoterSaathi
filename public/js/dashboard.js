@@ -94,7 +94,7 @@ const handleSearch = async () => {
     } catch (error) {
         console.error("Dashboard Error:", error);
         if(document.getElementById('mpName')) document.getElementById('mpName').textContent = "Error";
-        showToast("Failed to fetch AI details. Please check your internet.", "error");
+        showToast(error.message || "Failed to fetch AI details.", "error");
     } finally {
         toggleButtonLoading(findBoothBtn, false, "Search");
     }
