@@ -94,7 +94,35 @@ const appendMessage = (text, sender) => {
     bubble.textContent = text;
     // Sanitize output conceptually (textContent prevents basic XSS)
     chatMessages.insertBefore(bubble, typingIndicator);
+    
+    if (sender === 'ai' && text !== "Searching...") {
+        const speakBtn = document.createElement('button');
+        speakBtn.innerHTML = '🔊';
+        speakBtn.className = 'speak-btn';
+        speakBtn.title = 'Listen to response';
+        speakBtn.setAttribute('aria-label', 'Listen to response');
+        speakBtn.onclick = () => speak(text);
+        bubble.appendChild(speakBtn);
+    }
+
     chatMessages.scrollTop = chatMessages.scrollHeight;
+};
+
+/**
+ * Speaks the text using Web Speech API.
+ * @param {string} text - The text to speak.
+ */
+const speak = (text) => {
+    if ('speechSynthesis' in window) {
+        // Cancel any ongoing speech
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+        window.speechSynthesis.speak(utterance);
+    } else {
+        showToast("Text-to-speech not supported in this browser.", "info");
+    }
 };
 
 /**

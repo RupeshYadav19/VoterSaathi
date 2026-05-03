@@ -879,7 +879,28 @@ section {
   background: var(--white);
   align-self: flex-start;
   border-bottom-left-radius: 4px;
+  position: relative;
+  padding-right: 36px;
 }
+
+.speak-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  padding: 4px;
+}
+
+.speak-btn:hover {
+  opacity: 1;
+}
+
 
 .chat-bubble.user {
   background: var(--orange);
@@ -964,12 +985,17 @@ a, button, input[type="button"], input[type="submit"], .cursor-pointer, .pill-bt
    NEW UI ADDITIONS (Toasts, Spinners, Dark Mode, Profile Dropdown)
    ========================================================================== */
 
-/* Profile Dropdown */
+/* Profile Dropdown Transition Fix */
 .profile-dropdown {
-  background: var(--white);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  border: 1px solid var(--dashed-line);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block; /* Managed by JS opacity/pointer-events but this ensures transition works */
 }
+
+.profile-dropdown h3 {
+  font-family: 'Baloo 2', cursive;
+  font-weight: 800;
+}
+
 
 /* Toasts */
 .toast-container {
