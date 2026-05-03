@@ -8,6 +8,7 @@ import { toggleTheme } from './ui.js';
 
 // Global State
 let loginBtn, profileBtn, profileDropdown, navRight;
+let currentUser = null; // Track current user to prevent UI resets
 
 /**
  * Initializes the Auth UI components.
@@ -69,14 +70,10 @@ export const initAuthUI = () => {
     // Assign global toggle function for the dropdown buttons
     window.handleDropdownAction = (action) => {
         if (action === 'toggleTheme') {
-            const isDark = toggleTheme();
-            updateProfileDropdown(null); // Refresh UI to show correct icon
-            // Re-fetch user if needed, but for now we can just refresh the content
-            // Actually, better to just update the button text/icon manually or re-run update
-            const auth = window.firebaseAuth; // Assuming exported
-            updateProfileDropdown(auth?.currentUser);
+            toggleTheme();
+            updateProfileDropdown(currentUser); // Refresh UI with current user state
         } else if (action === 'logout') {
-            login(); // firebase.js login handles both
+            login(); // firebase.js login handles both login and logout
         }
     };
 
@@ -160,6 +157,7 @@ const updateProfileDropdown = (user) => {
  * @param {Object} user - User object.
  */
 export const onAuthChange = (user) => {
+    currentUser = user; // Store user globally in this module
     updateProfileDropdown(user);
     const dashboardGrid = document.getElementById('dashboardGrid');
     const lockedOverlay = document.getElementById('lockedOverlay');
