@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoterSaathi - India's Official Voter Guide</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Caveat:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        /* ===== Animated Indian Flag (Cloth Only) ===== */
+        .flag-cloth {
+            width: 280px;
+            height: 187px;
+            position: relative;
+            transform-origin: center center;
+            animation: flagWave 3s ease-in-out infinite;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flag-stripe {
+            width: 100%;
+            height: 33.333%;
+            position: relative;
+        }
+
+        .flag-saffron {
+            background: linear-gradient(180deg, #FF9933 0%, #FF8C1A 60%, #E8872E 100%);
+        }
+
+        .flag-white {
+            background: linear-gradient(180deg, #FFFFFF 0%, #F8F8F8 50%, #FFFFFF 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flag-green {
+            background: linear-gradient(180deg, #0F8A32 0%, #138808 40%, #0D6B25 100%);
+        }
+
+        /* Ashoka Chakra - spins continuously */
+        .ashoka-chakra {
+            width: 54px;
+            height: 54px;
+            animation: chakraSpin 8s linear infinite;
+        }
+
+        @keyframes chakraSpin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Realistic Cloth Wave Animation */
+        @keyframes flagWave {
+            0% {
+                transform: perspective(500px) rotateY(0deg) skewY(0deg) scaleX(1) rotate(0deg);
+            }
+
+            10% {
+                transform: perspective(500px) rotateY(8deg) skewY(-3deg) scaleX(0.96) rotate(0.5deg);
+            }
+
+            20% {
+                transform: perspective(500px) rotateY(-5deg) skewY(4deg) scaleX(1.04) rotate(-0.8deg);
+            }
+
+            30% {
+                transform: perspective(500px) rotateY(6deg) skewY(-2deg) scaleX(0.97) rotate(0.6deg);
+            }
+
+            40% {
+                transform: perspective(500px) rotateY(-4deg) skewY(3deg) scaleX(1.03) rotate(-0.4deg);
+            }
+
+            50% {
+                transform: perspective(500px) rotateY(7deg) skewY(-3.5deg) scaleX(0.95) rotate(0.7deg);
+            }
+
+            60% {
+                transform: perspective(500px) rotateY(-3deg) skewY(2deg) scaleX(1.02) rotate(-0.5deg);
+            }
+
+            70% {
+                transform: perspective(500px) rotateY(5deg) skewY(-2.5deg) scaleX(0.98) rotate(0.3deg);
+            }
+
+            80% {
+                transform: perspective(500px) rotateY(-4deg) skewY(1.5deg) scaleX(1.01) rotate(-0.6deg);
+            }
+
+            90% {
+                transform: perspective(500px) rotateY(3deg) skewY(-1deg) scaleX(0.99) rotate(0.2deg);
+            }
+
+            100% {
+                transform: perspective(500px) rotateY(0deg) skewY(0deg) scaleX(1) rotate(0deg);
+            }
+        }
+
+        /* Animated fold shadows - simulates cloth ripples */
+        .flag-fold-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.07) 6%,
+                    transparent 12%,
+                    rgba(255, 255, 255, 0.15) 18%,
+                    transparent 24%,
+                    rgba(0, 0, 0, 0.04) 30%,
+                    transparent 36%);
+            background-size: 300% 100%;
+            animation: foldShadow 2.5s ease-in-out infinite;
+            pointer-events: none;
+            border-radius: 12px;
+        }
+
+        @keyframes foldShadow {
+            0% {
+                background-position: 0% 0;
+            }
+
+            50% {
+                background-position: 100% 0;
+            }
+
+            100% {
+                background-position: 0% 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .flag-cloth {
+                width: 200px;
+                height: 133px;
+            }
+
+            .ashoka-chakra {
+                width: 38px;
+                height: 38px;
+            }
+        }
+    </style>
+
+    <!-- Translation API integration placeholder -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'en,hi,ta,te,bn,mr,gu,kn,ml,pa', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-logo">
+                <img src="assets/evm.svg" alt="Logo" width="30">
+                VoterSaathi
+            </div>
+
+            <div class="hamburger" id="hamburgerMenu">
+                <span></span><span></span><span></span>
+            </div>
+
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="active">Home</a>
+                <a href="how_to_vote.html">How to Vote</a>
+                <a href="register.html">Register</a>
+                <a href="help.html">Help</a>
+                <a href="guide.html">Guide</a>
+            </div>
+
+            <div class="nav-right">
+                <div id="google_translate_element" style="display:none;" class="translate-dropdown"></div>
+                <button class="pill-btn outlined"
+                    onclick="document.getElementById('google_translate_element').style.display='block'"
+                    style="padding: 6px 16px; font-size: 14px;">🌐 Translate</button>
+                <a href="https://www.linkedin.com/in/rupesh-20-yadav/" target="_blank" class="icon-btn" title="Developer Profile">👤</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Section 1: Hero -->
+    <section id="hero" class="hero">
+        <div class="container hero-grid">
+            <div>
+                <div class="pill-tag text-orange" style="border: 1px solid var(--orange); margin-bottom:16px;">🇮🇳
+                    India's Official Voter Guide</div>
+                <h1 class="hero-title">Your <span class="text-orange">Vote</span>, <br>Your Voice! 🗳️</h1>
+                <p class="hero-body text-muted">Everything you need to know about Indian elections — simple, fun &
+                    clear.</p>
+
+                <div class="pincode-card">
+                    <span style="padding:0 16px;">📍</span>
+                    <input type="text" id="pincodeInput" placeholder="Enter your pincode..." maxlength="6">
+                    <button class="pill-btn" id="findBoothBtn">Find →</button>
+                </div>
+                <p class="font-sticky text-muted"
+                    style="margin-left: 16px; transform: rotate(-2deg); display: inline-block;">We'll show your
+                    constituency & booth!</p>
+            </div>
+
+            <div class="hero-character">
+                <!-- Waving Indian Flag Cloth -->
+                <div class="flag-cloth">
+                    <div class="flag-stripe flag-saffron"></div>
+                    <div class="flag-stripe flag-white">
+                        <svg class="ashoka-chakra" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#000080" stroke-width="2.5" />
+                            <circle cx="50" cy="50" r="7" fill="#000080" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(0,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(15,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(30,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(45,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(60,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(75,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(90,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(105,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(120,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(135,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(150,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(165,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(180,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(195,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(210,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(225,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(240,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(255,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(270,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(285,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(300,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(315,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(330,50,50)" />
+                            <line x1="50" y1="50" x2="50" y2="7" stroke="#000080" stroke-width="1.5"
+                                transform="rotate(345,50,50)" />
+                        </svg>
+                    </div>
+                    <div class="flag-stripe flag-green"></div>
+                    <div class="flag-fold-overlay"></div>
+                </div>
+                <!-- Floating info cards (no emojis) -->
+                <div class="floating-card fc-1">18+ Eligible ✓</div>
+                <div class="floating-card fc-2">Easy Steps</div>
+                <div class="floating-card fc-3">Free to Vote</div>
+            </div>
+        </div>
+
+        <div
+            style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); animation: float 2s infinite;">
+            ↓
+        </div>
+    </section>
+
+    <!-- Section 2: Personalization Dashboard -->
+    <section id="dashboard" class="section-dashboard">
+        <div class="container">
+            <div class="sticky-note" style="margin-bottom: 24px;">📌 Your Election Dashboard</div>
+
+            <div id="dashboardGrid" class="dashboard-grid dashboard-locked">
+                <!-- Overlay to lock dashboard initially -->
+                <div class="locked-overlay" id="lockedOverlay">
+                    <p class="font-sticky text-muted" style="font-size: 1.5rem;">Enter pincode above to unlock!</p>
+                </div>
+
+                <!-- Location Info -->
+                <div class="clay-card yellow"
+                    style="grid-column: 1 / -1; padding: 12px 24px; display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 1.5rem;">📍</span>
+                    <span id="locationDisplay" style="font-weight: 700; font-size: 1.1rem;">Location:
+                        Searching...</span>
+                </div>
+
+                <div class="clay-card blue">
+                    <h2 style="font-size: 2rem;">👤</h2>
+                    <h3 id="mpNameTitle">Member of Parliament (MP)</h3>
+                    <p id="mpName" style="font-weight: 800; font-size: 1.2rem; color: var(--navy); margin-bottom: 8px;">
+                        Searching...</p>
+                    <p class="text-muted" id="mpConstituency">Constituency: Loading...</p>
+                </div>
+
+                <div class="clay-card green">
+                    <h2 style="font-size: 2rem;">🏛️</h2>
+                    <h3 id="mlaNameTitle">Legislative Assembly (MLA)</h3>
+                    <p id="partyName"
+                        style="font-weight: 800; font-size: 1.2rem; color: var(--navy); margin-bottom: 8px;">
+                        Searching...</p>
+                    <p class="text-muted" id="stateName">State: Loading...</p>
+                    <p class="text-muted" id="cmName" style="font-size: 14px;">CM: Loading...</p>
+                </div>
+
+                <div class="clay-card pink">
+                    <h2 style="font-size: 2rem;">⏳</h2>
+                    <h3 id="nextElectionDate">Next Election</h3>
+                    <p class="text-muted" id="liveTimer" style="font-weight: 700; color: var(--orange);">00d 00h 00m 00s
+                    </p>
+                </div>
+
+                <div class="clay-card lavender" onclick="document.getElementById('chatbotToggle').click()"
+                    style="cursor:pointer;">
+                    <h2 style="font-size: 2rem;">🏘️</h2>
+                    <h3>Local Governance</h3>
+                    <p class="text-muted" style="font-size: 14px;">Ask <b>VoterSaathi AI</b> about your local Sarpanch,
+                        District, or Ward!</p>
+                    <span class="pill-btn" style="margin-top:12px; display:inline-block; font-size:12px;">Open Chatbot
+                        →</span>
+                </div>
+
+                <!-- Ad Box -->
+                <div class="clay-card"
+                    style="background: var(--orange); color: white; border-color: var(--orange); grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; padding: 16px 24px;">
+                    <div>
+                        <h3 style="color: white; margin-bottom: 4px;">Powered by VoterSaathi</h3>
+                        <p style="font-size: 14px; color: rgba(255,255,255,0.9);">Created by RupeshYadav — Empowering
+                            citizens with live electoral data.</p>
+                    </div>
+                    <div style="font-size: 3rem;">🇮🇳</div>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div id="mapContainer" style="display: none; margin-top: 40px;">
+                <div class="clay-card" style="padding: 24px; background: white;">
+                    <div class="sticky-note" style="margin-bottom: 20px;">Find Polling Booths 🏫</div>
+
+                    <div class="map-controls"
+                        style="background: rgba(0,0,0,0.03); padding: 16px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.1); margin-bottom: 20px;">
+                        <div style="display: flex; gap: 12px; width: 100%; flex-wrap: wrap;">
+                            <button onclick="window.open('https://electoralsearch.eci.gov.in/', '_blank')"
+                                class="pill-btn" style="background: #000; color: #fff; flex: 1; min-width: 200px;">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">search</span> EPIC
+                                Number
+                            </button>
+                            <button onclick="showNearby()" class="pill-btn"
+                                style="background: var(--yellow); color: #000; border: 2px solid #000; flex: 1; min-width: 200px;">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">location_on</span> Find
+                                My Polling Booth
+                            </button>
+                        </div>
+                        <div
+                            style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed rgba(0,0,0,0.2); padding-top: 12px;">
+                            <span style="font-size: 13px; color: #555; font-weight: 600;">Official ECI Resources</span>
+                            <a href="javascript:void(0)" onclick="openInGoogleMaps()"
+                                style="font-size: 13px; color: #000; font-weight: 800; text-decoration: underline;">↗
+                                Open in Google Maps</a>
+                        </div>
+                    </div>
+
+                    <div class="map-container"
+                        style="height: 450px; position: relative; border-radius: 20px; overflow: hidden; border: 3px solid #000;">
+                        <iframe id="mapFrame" width="100%" height="100%" frameborder="0" style="border:0" src=""
+                            allowfullscreen allow="geolocation"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: What is an Election? -->
+    <section id="what" class="section-what">
+        <div class="container">
+            <div class="sticky-note" style="margin-bottom: 24px;">What is an Election? 🗳️</div>
+            <p class="text-muted" style="margin-bottom: 32px;">Click on any election type to explore its details 👇</p>
+
+            <div class="election-grid">
+                <!-- Lok Sabha Card -->
+                <div class="clay-card blue election-card" id="card-loksabha" onclick="toggleFlowchart('loksabha')"
+                    style="cursor:pointer; transition: all 0.3s;">
+                    <div style="font-size:3rem; margin-bottom:16px;">🏛️</div>
+                    <h2>Lok Sabha</h2>
+                    <p class="text-muted">National parliament election held every 5 years</p>
+                    <div>
+                        <span class="pill-tag">543 seats</span>
+                        <span class="pill-tag">5 years</span>
+                    </div>
+                    <div style="margin-top:12px; font-size:12px; color: var(--orange); font-weight:700;">▼ Tap to
+                        explore</div>
+                </div>
+
+                <!-- Vidhan Sabha Card -->
+                <div class="clay-card green election-card" id="card-vidhansabha"
+                    onclick="toggleFlowchart('vidhansabha')" style="cursor:pointer; transition: all 0.3s;">
+                    <div style="font-size:3rem; margin-bottom:16px;">🏢</div>
+                    <h2>Vidhan Sabha</h2>
+                    <p class="text-muted">State assembly elections — your state government</p>
+                    <div>
+                        <span class="pill-tag">State level</span>
+                        <span class="pill-tag">MLAs</span>
+                    </div>
+                    <div style="margin-top:12px; font-size:12px; color: var(--orange); font-weight:700;">▼ Tap to
+                        explore</div>
+                </div>
+
+                <!-- Local Body Card -->
+                <div class="clay-card pink election-card" id="card-localbody" onclick="toggleFlowchart('localbody')"
+                    style="cursor:pointer; transition: all 0.3s;">
+                    <div style="font-size:3rem; margin-bottom:16px;">🏘️</div>
+                    <h2>Local Body</h2>
+                    <p class="text-muted">Municipal & panchayat elections — your city & village</p>
+                    <div>
+                        <span class="pill-tag">Local</span>
+                        <span class="pill-tag">Councillors</span>
+                    </div>
+                    <div style="margin-top:12px; font-size:12px; color: var(--orange); font-weight:700;">▼ Tap to
+                        explore</div>
+                </div>
+            </div>
+
+            <!-- ===== FLOWCHART DETAIL PANELS ===== -->
+
+            <!-- Lok Sabha Flowchart -->
+            <div class="flowchart-panel" id="flow-loksabha">
+                <div class="flow-connector"></div>
+                <div class="flow-container-inner">
+                    <div class="flow-header blue">🏛️ Lok Sabha — Deep Dive</div>
+                    <div class="flow-grid">
+                        <div class="flow-node yellow">
+                            <div class="flow-node-icon">❓</div>
+                            <h4>Why is it held?</h4>
+                            <p>To elect 543 Members of Parliament (MPs) who form the national government and pass laws
+                                for the entire country.</p>
+                        </div>
+                        <div class="flow-node pink">
+                            <div class="flow-node-icon">📅</div>
+                            <h4>When is it conducted?</h4>
+                            <p>Every 5 years, typically between April–May. The last election was in 2024; the next is
+                                expected in 2029.</p>
+                        </div>
+                        <div class="flow-node green">
+                            <div class="flow-node-icon">💺</div>
+                            <h4>How many seats?</h4>
+                            <p><strong>543 constituencies</strong> across all states and Union Territories. Each
+                                constituency elects one MP. 2 Anglo-Indian seats were removed in 2020.</p>
+                        </div>
+                        <div class="flow-node lavender">
+                            <div class="flow-node-icon">🏢</div>
+                            <h4>Major Parties</h4>
+                            <p>BJP, INC, AAP, TMC, DMK, SP, BSP, NCP, JD(U), Shiv Sena, and many regional parties — over
+                                <strong>2,500+ registered parties</strong> nationwide.
+                            </p>
+                        </div>
+                        <div class="flow-node blue">
+                            <div class="flow-node-icon">👔</div>
+                            <h4>Key Positions Elected</h4>
+                            <p><strong>Prime Minister</strong> (leader of majority party/coalition), <strong>Speaker of
+                                    Lok Sabha</strong>, and <strong>Leader of Opposition</strong>.</p>
+                        </div>
+                        <div class="flow-node" style="background:#FFF3E0; border-color: var(--orange);">
+                            <div class="flow-node-icon">🗳️</div>
+                            <h4>Who can vote?</h4>
+                            <p>Any Indian citizen aged <strong>18+</strong> registered in the electoral roll. Voting is
+                                done using EVMs with VVPAT verification.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vidhan Sabha Flowchart -->
+            <div class="flowchart-panel" id="flow-vidhansabha">
+                <div class="flow-connector"></div>
+                <div class="flow-container-inner">
+                    <div class="flow-header green">🏢 Vidhan Sabha — Deep Dive</div>
+                    <div class="flow-grid">
+                        <div class="flow-node yellow">
+                            <div class="flow-node-icon">❓</div>
+                            <h4>Why is it held?</h4>
+                            <p>To elect Members of Legislative Assembly (MLAs) who form the state government, pass state
+                                laws, and manage state budgets.</p>
+                        </div>
+                        <div class="flow-node pink">
+                            <div class="flow-node-icon">📅</div>
+                            <h4>When is it conducted?</h4>
+                            <p>Every 5 years for each state, on different schedules. States like UP, Maharashtra, Bihar
+                                hold elections at different times.</p>
+                        </div>
+                        <div class="flow-node blue">
+                            <div class="flow-node-icon">💺</div>
+                            <h4>How many seats?</h4>
+                            <p>Varies by state — UP has <strong>403 seats</strong> (largest), Sikkim has <strong>32
+                                    seats</strong> (smallest). Total ~4,100+ MLA seats across India.</p>
+                        </div>
+                        <div class="flow-node lavender">
+                            <div class="flow-node-icon">🏢</div>
+                            <h4>Major Parties</h4>
+                            <p>National parties plus strong regional parties like TRS (Telangana), AIADMK (TN), JMM
+                                (Jharkhand), BJD (Odisha), and many more.</p>
+                        </div>
+                        <div class="flow-node green">
+                            <div class="flow-node-icon">👔</div>
+                            <h4>Key Positions Elected</h4>
+                            <p><strong>Chief Minister</strong> (leader of majority party), <strong>Speaker of Vidhan
+                                    Sabha</strong>, <strong>Deputy CM</strong>, and Cabinet Ministers.</p>
+                        </div>
+                        <div class="flow-node" style="background:#FFF3E0; border-color: var(--orange);">
+                            <div class="flow-node-icon">📋</div>
+                            <h4>What does it control?</h4>
+                            <p>State police, healthcare, agriculture, state roads, education, and state-level taxes like
+                                GST share and stamp duty.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Local Body Flowchart -->
+            <div class="flowchart-panel" id="flow-localbody">
+                <div class="flow-connector"></div>
+                <div class="flow-container-inner">
+                    <div class="flow-header pink">🏘️ Local Body — Deep Dive</div>
+                    <div class="flow-grid">
+                        <div class="flow-node yellow">
+                            <div class="flow-node-icon">❓</div>
+                            <h4>Why is it held?</h4>
+                            <p>To elect local representatives who manage civic services — water, sanitation, street
+                                lights, and local roads in your area.</p>
+                        </div>
+                        <div class="flow-node blue">
+                            <div class="flow-node-icon">📅</div>
+                            <h4>When is it conducted?</h4>
+                            <p>Every 5 years, scheduled by the State Election Commission. Timing varies widely across
+                                states and municipalities.</p>
+                        </div>
+                        <div class="flow-node green">
+                            <div class="flow-node-icon">💺</div>
+                            <h4>Types of Bodies</h4>
+                            <p><strong>Municipal Corporation</strong> (large cities), <strong>Municipality/Nagar
+                                    Palika</strong> (towns), <strong>Gram Panchayat</strong> (villages). India has 2.5
+                                lakh+ panchayats.</p>
+                        </div>
+                        <div class="flow-node lavender">
+                            <div class="flow-node-icon">🏢</div>
+                            <h4>Parties & Independents</h4>
+                            <p>Local elections often see strong <strong>independent candidates</strong>. Party influence
+                                varies — national parties compete in cities, locals dominate villages.</p>
+                        </div>
+                        <div class="flow-node pink">
+                            <div class="flow-node-icon">👔</div>
+                            <h4>Key Positions Elected</h4>
+                            <p><strong>Mayor / Sarpanch</strong>, <strong>Councillors / Ward Members</strong>,
+                                <strong>Block Pramukh</strong>, and <strong>Zila Parishad Members</strong>.
+                            </p>
+                        </div>
+                        <div class="flow-node" style="background:#FFF3E0; border-color: var(--orange);">
+                            <div class="flow-node-icon">🌟</div>
+                            <h4>Special Feature</h4>
+                            <p>Local elections have <strong>reserved seats</strong> for SC/ST/OBC and women (33-50%
+                                reservation) — ensuring grassroots representation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <style>
+        /* ===== Flowchart Panels ===== */
+        .election-card.active {
+            transform: translateY(-6px) scale(1.03) !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+            outline: 3px solid var(--orange);
+            outline-offset: 3px;
+        }
+
+        .flowchart-panel {
+            display: none;
+            margin-top: 40px;
+            animation: flowSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            position: relative;
+        }
+
+        .flowchart-panel.open {
+            display: block;
+        }
+
+        @keyframes flowSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Connector line from card to panel */
+        .flow-connector {
+            width: 3px;
+            height: 40px;
+            background: repeating-linear-gradient(to bottom, var(--dashed-line) 0px, var(--dashed-line) 6px, transparent 6px, transparent 12px);
+            margin: 0 auto 0;
+        }
+
+        .flow-header {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 800;
+            padding: 16px 28px;
+            border-radius: 16px;
+            border: 2px solid #000;
+            display: inline-block;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-clay);
+        }
+
+        .flow-container-inner {
+            background-color: #FDF5E6;
+            /* Light brown / Old Lace */
+            border: 3px solid #4A3728;
+            /* Dark brown border */
+            border-radius: 32px;
+            padding: 48px;
+            box-shadow: 8px 8px 0px rgba(74, 55, 40, 0.15);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .flow-header.blue {
+            background: var(--card-blue);
+        }
+
+        .flow-header.green {
+            background: var(--card-green);
+        }
+
+        .flow-header.pink {
+            background: var(--card-pink);
+        }
+
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            position: relative;
+        }
+
+        .flow-node {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 24px;
+            border: 2px solid rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow-clay);
+            position: relative;
+            transition: all 0.25s ease;
+            animation: nodePopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+        }
+
+        .flow-node:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .flow-node:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .flow-node:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .flow-node:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .flow-node:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        .flow-node:nth-child(6) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes nodePopIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.85) translateY(15px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .flow-node:hover {
+            transform: translateY(-4px) rotate(0.5deg);
+            box-shadow: var(--shadow-clay-hover);
+        }
+
+        .flow-node.yellow {
+            background: var(--card-yellow);
+        }
+
+        .flow-node.pink {
+            background: var(--card-pink);
+        }
+
+        .flow-node.blue {
+            background: var(--card-blue);
+        }
+
+        .flow-node.green {
+            background: var(--card-green);
+        }
+
+        .flow-node.lavender {
+            background: var(--card-lavender);
+        }
+
+        .flow-node-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .flow-node h4 {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .flow-node p {
+            font-size: 0.88rem;
+            color: var(--light-text);
+            line-height: 1.5;
+        }
+
+        /* Dashed connectors between nodes */
+        .flow-node::before {
+            content: '';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 14px;
+            background: repeating-linear-gradient(to bottom, var(--dashed-line) 0px, var(--dashed-line) 4px, transparent 4px, transparent 8px);
+        }
+
+        .flow-node:nth-child(1)::before,
+        .flow-node:nth-child(2)::before,
+        .flow-node:nth-child(3)::before {
+            display: block;
+        }
+
+        .flow-node:nth-child(4)::before,
+        .flow-node:nth-child(5)::before,
+        .flow-node:nth-child(6)::before {
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .flow-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .flow-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-container-inner {
+                padding: 24px;
+                border-radius: 24px;
+            }
+
+            .flow-header {
+                font-size: 1.1rem;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+
+    <script>
+        function toggleFlowchart(type) {
+            const allPanels = document.querySelectorAll('.flowchart-panel');
+            const allCards = document.querySelectorAll('.election-card');
+            const targetPanel = document.getElementById('flow-' + type);
+            const targetCard = document.getElementById('card-' + type);
+            const isOpen = targetPanel.classList.contains('open');
+
+            // Close all panels and deactivate all cards
+            allPanels.forEach(p => p.classList.remove('open'));
+            allCards.forEach(c => c.classList.remove('active'));
+
+            if (!isOpen) {
+                // Open the clicked one
+                targetPanel.classList.add('open');
+                targetCard.classList.add('active');
+
+                // Re-trigger animation by cloning nodes
+                const nodes = targetPanel.querySelectorAll('.flow-node');
+                nodes.forEach(node => {
+                    node.style.animation = 'none';
+                    node.offsetHeight; // force reflow
+                    node.style.animation = '';
+                });
+
+                // Smooth scroll to flowchart
+                setTimeout(() => {
+                    targetPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
+    </script>
+
+    <!-- Chatbot Button -->
+    <button class="chatbot-btn" id="chatbotToggle">🤖</button>
+
+    <!-- Chatbot Panel -->
+    <div class="chatbot-panel" id="chatbotPanel">
+        <div class="chat-header">
+            <h3 style="font-family:var(--font-heading);">VoteSaathi AI 🤖</h3>
+            <button class="icon-btn" id="chatbotClose" style="width:30px; height:30px; font-size:12px;">✕</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-bubble ai">
+                Hello! I am your friendly VoteSaathi AI. Ask me anything about Indian elections!
+            </div>
+            <!-- Typing indicator -->
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <div style="padding: 0 16px 8px; display:flex; gap:8px; overflow-x:auto;">
+            <span class="pill-tag" onclick="sendSuggestion('How to register?')"
+                style="cursor:pointer; white-space:nowrap;">How to register? 📝</span>
+            <span class="pill-tag" onclick="sendSuggestion('What is NOTA?')"
+                style="cursor:pointer; white-space:nowrap;">What is NOTA? 🗳️</span>
+        </div>
+
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button id="micBtn">🎤</button>
+            <button id="sendBtn">➤</button>
+        </div>
+    </div>
+
+    <!-- Disable SW for now to prevent caching issues -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function (registrations) {
+                for (let registration of registrations) { registration.unregister(); }
+            });
+        }
+    </script>
+    <script src="config.js"></script>
+    <script type="module" src="script.js?v=2"></script>
+
+
+
+</body>
+
+</html>

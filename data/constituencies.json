@@ -1,0 +1,41 @@
+{
+  "110001": {
+    "state": "Delhi",
+    "district": "Central Delhi",
+    "constituency": "New Delhi",
+    "mp": "Bansuri Swaraj",
+    "mla": "Arvind Kejriwal",
+    "party": "BJP / AAP",
+    "partyColor": "#FF9933",
+    "nextElection": "Feb 2025",
+    "daysAway": 280,
+    "pollingBooths": 12,
+    "boothsMap": "New Delhi"
+  },
+  "400001": {
+    "state": "Maharashtra",
+    "district": "Mumbai City",
+    "constituency": "Mumbai South",
+    "mp": "Arvind Sawant",
+    "mla": "Rahul Narwekar",
+    "party": "SS(UBT) / BJP",
+    "partyColor": "#FF9933",
+    "nextElection": "Oct 2024",
+    "daysAway": 150,
+    "pollingBooths": 15,
+    "boothsMap": "Colaba"
+  },
+  "560001": {
+    "state": "Karnataka",
+    "district": "Bengaluru Urban",
+    "constituency": "Bangalore Central",
+    "mp": "P. C. Mohan",
+    "mla": "Rizwan Arshad",
+    "party": "BJP / INC",
+    "partyColor": "#00AEEF",
+    "nextElection": "May 2028",
+    "daysAway": 1400,
+    "pollingBooths": 20,
+    "boothsMap": "Shivajinagar"
+  }
+}

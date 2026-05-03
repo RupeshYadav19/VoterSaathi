@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoterSaathi - Voter Registration Guide</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Caveat:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Fredoka+One&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    
+    <style>
+        body {
+            background-color: #f3e9dc; /* Light brown / Tan background */
+        }
+        .clip-torn-edge {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 95% 100%, 90% 95%, 85% 100%, 80% 95%, 75% 100%, 70% 95%, 65% 100%, 60% 95%, 55% 100%, 50% 95%, 45% 100%, 40% 95%, 35% 100%, 30% 95%, 25% 100%, 20% 95%, 15% 100%, 10% 95%, 5% 100%, 0% 95%);
+        }
+        .wobbly-border {
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+        .journey-step {
+            padding: 24px;
+            box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            border: 2px solid #000;
+            background: #fff;
+        }
+        .journey-step:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+        }
+        .step-num-box {
+            background: #000;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+        .tape {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 25px;
+            background: rgba(255,255,255,0.4);
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .journey-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 40px;
+        }
+        .sidebar-card {
+            background: #fff;
+            border-radius: 24px;
+            border: 3px solid #000;
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,0.1);
+            padding: 24px;
+        }
+        .registration-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+        @media (max-width: 992px) {
+            .registration-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <!-- Translation API integration placeholder -->
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,hi,ta,te,bn,mr,gu,kn,ml,pa', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+      }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo">
+            <img src="assets/evm.svg" alt="Logo" width="30">
+            VoterSaathi
+        </div>
+        
+        <div class="hamburger" id="hamburgerMenu">
+            <span></span><span></span><span></span>
+        </div>
+        
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="how_to_vote.html">How to Vote</a>
+            <a href="register.html" class="active">Register</a>
+            <a href="help.html">Help</a>
+            <a href="guide.html">Guide</a>
+        </div>
+        
+        <div class="nav-right">
+            <div id="google_translate_element" style="display:none;" class="translate-dropdown"></div>
+            <button class="pill-btn outlined" onclick="document.getElementById('google_translate_element').style.display='block'" style="padding: 6px 16px; font-size: 14px;">🌐 Translate</button>
+            <a href="https://www.linkedin.com/in/rupesh-20-yadav/" target="_blank" class="icon-btn" title="Developer Profile">👤</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container" style="padding-top: 120px; padding-bottom: 60px;">
+    <!-- Header -->
+    <header style="text-align: center; margin-bottom: 40px;">
+        <div class="clay-card yellow wobbly-border" style="display: inline-block; padding: 20px 40px; transform: rotate(-1deg); border: 3px solid #000;">
+            <h1 style="font-family: 'Fredoka One', cursive; font-size: 2.5rem; margin-bottom: 8px;">Register</h1>
+            <p class="font-sticky" style="font-size: 1.2rem; color: #555;">How to register for a Voter ID card? It's simple!</p>
+        </div>
+    </header>
+
+    <div class="registration-layout">
+        <!-- Main Steps Section -->
+        <div>
+            <div class="sticky-note" style="margin-bottom: 24px; background: #fff; border: 2px solid #000;">Journey Board 🗺️</div>
+            
+            <div class="journey-grid">
+                <!-- Step 1 -->
+                <div class="journey-step clip-torn-edge" style="background: #fef08a; transform: rotate(-2deg);">
+                    <div class="tape" style="transform: translateX(-50%) rotate(3deg);"></div>
+                    <div class="step-num-box">1</div>
+                    <div>
+                        <h3 style="font-family: 'Caveat', cursive; font-size: 1.8rem; margin-bottom: 8px;">Visit Official Portal</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.5; color: #444;">Go to the official portal at <a href="https://voters.eci.gov.in" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 600;">voters.eci.gov.in</a> or use the app.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="journey-step clip-torn-edge" style="background: #fbcfe8; transform: rotate(3deg);">
+                    <div class="tape" style="transform: translateX(-50%) rotate(-2deg);"></div>
+                    <div class="step-num-box">2</div>
+                    <div>
+                        <h3 style="font-family: 'Caveat', cursive; font-size: 1.8rem; margin-bottom: 8px;">Sign Up / Login</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.5; color: #444;">Create an account with your mobile number to get started.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="journey-step clip-torn-edge" style="background: #bfdbfe; transform: rotate(-1deg);">
+                    <div class="tape" style="transform: translateX(-50%) rotate(4deg);"></div>
+                    <div class="step-num-box">3</div>
+                    <div>
+                        <h3 style="font-family: 'Caveat', cursive; font-size: 1.8rem; margin-bottom: 8px;">Select Form 6</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.5; color: #444;">Choose "New Voter Registration" to add your name to the list.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="journey-step clip-torn-edge" style="background: #bbf7d0; transform: rotate(2deg);">
+                    <div class="tape" style="transform: translateX(-50%) rotate(-1deg);"></div>
+                    <div class="step-num-box">4</div>
+                    <div>
+                        <h3 style="font-family: 'Caveat', cursive; font-size: 1.8rem; margin-bottom: 8px;">Fill Your Details</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.5; color: #444;">Enter personal info and address accurately from your documents.</p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="journey-step clip-torn-edge" style="background: #fed7aa; transform: rotate(-3deg);">
+                    <div class="tape" style="transform: translateX(-50%) rotate(2deg);"></div>
+                    <div class="step-num-box">5</div>
+                    <div>
+                        <h3 style="font-family: 'Caveat', cursive; font-size: 1.8rem; margin-bottom: 8px;">Upload Proofs</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.5; color: #444;">Upload your photo, age proof, and address proof copies.</p>
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="journey-step clip-torn-edge" style="background: #e9d5ff; transform: rotate(1deg);">
+                    <div class="tape" style="transform: translateX(-50%) rotate(-3deg);"></div>
+                    <div class="step-num-box">6</div>
+                    <div>
+                        <h3 style="font-family: 'Caveat', cursive; font-size: 1.8rem; margin-bottom: 8px;">Submit & Track</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.5; color: #444;">Review, submit, and save your Reference ID for tracking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Section -->
+        <div class="flex flex-col gap-8">
+            <div class="sidebar-card">
+                <h2 style="font-family: 'Fredoka One', cursive; font-size: 1.8rem; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+                    <span class="material-symbols-outlined" style="color: var(--pink);">cake</span>
+                    Am I 18+?
+                </h2>
+                <p style="margin-bottom: 20px; color: #666;">Enter your date of birth to check if you're eligible!</p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <input type="date" id="dobInput" style="padding: 12px; border-radius: 12px; border: 2px solid #000; font-family: inherit;">
+                    <button class="pill-btn" onclick="checkEligibility()" style="width: 100%; padding: 12px; background: #000; color: #fff;">Check Now</button>
+                </div>
+                <p id="eligibilityResult" style="margin-top: 16px; font-weight: bold; text-align: center; min-height: 24px;"></p>
+            </div>
+
+            <div style="text-align: right; margin-top: 20px;">
+                <img src="assets/character.svg" alt="VoterSaathi Mascot" style="width: 200px; transform: rotate(5deg); filter: drop-shadow(8px 8px 0px rgba(0,0,0,0.1));">
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+<script>
+    function checkEligibility() {
+        const dob = document.getElementById('dobInput').value;
+        const result = document.getElementById('eligibilityResult');
+        if (!dob) {
+            result.innerText = "Please enter your DOB! 📅";
+            result.style.color = "var(--orange)";
+            return;
+        }
+        const birthDate = new Date(dob);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+        
+        if (age >= 18) {
+            result.innerText = "You are eligible to vote! 🎉";
+            result.style.color = "green";
+        } else {
+            result.innerText = `Eligible in ${18 - age} year(s)! ⏳`;
+            result.style.color = "var(--orange)";
+        }
+    }
+</script>
+
+</body>
+</html>

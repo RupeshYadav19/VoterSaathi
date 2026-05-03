@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoterSaathi - How to Vote</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Caveat:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    
+    <style>
+        .evm-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        @media (max-width: 768px) {
+            .evm-layout { grid-template-columns: 1fr; }
+        }
+
+        /* Ballot Unit */
+        .ballot-unit {
+            background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%);
+            border: 4px solid #333;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.25);
+        }
+        .ballot-title {
+            text-align: center;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            color: #333;
+            background: #bbb;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+        .red-light {
+            width: 18px; height: 18px;
+            background: #555;
+            border-radius: 50%;
+            border: 2px solid #333;
+            margin: 0 auto 12px;
+            transition: all 0.3s;
+        }
+        .red-light.on {
+            background: #ff0000;
+            box-shadow: 0 0 14px 5px rgba(255,0,0,0.7);
+        }
+
+        .cand-row {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border: 2px solid #999;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            gap: 12px;
+        }
+        .cand-row:hover { background: #f5f5f5; }
+        .cand-row .num { font-family: 'Fredoka One', cursive; font-size: 1.1rem; color: #333; min-width: 24px; }
+        .cand-row .sym { font-size: 1.5rem; min-width: 36px; text-align: center; }
+        .cand-row .info { flex: 1; }
+        .cand-row .cname { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; color: #222; }
+        .cand-row .cparty { font-size: 0.7rem; color: #888; font-weight: 600; }
+
+        .blue-btn {
+            width: 38px; height: 38px;
+            background: #1C50FF;
+            border: 3px solid #0a1a60;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #0a1a60;
+            flex-shrink: 0;
+            outline: none;
+        }
+        .blue-btn:hover { background: #3366ff; }
+        .blue-btn:active {
+            transform: translateY(3px);
+            box-shadow: none;
+        }
+        .blue-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* VVPAT Machine */
+        .vvpat-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .vvpat-label {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .vvpat-box {
+            width: 220px;
+            height: 180px;
+            background: #3a3a3a;
+            border: 6px solid #222;
+            border-radius: 16px 16px 4px 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        .vvpat-glass {
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* The paper slip */
+        .paper-slip {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -160px; /* hidden above */
+            width: 150px;
+            background: #fffde7;
+            border: 1px dashed #aaa;
+            padding: 12px 10px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            z-index: 5;
+        }
+        .paper-slip .ps-title { font-weight: bold; border-bottom: 1px solid #000; padding-bottom: 4px; margin-bottom: 6px; }
+        .paper-slip .ps-sym { font-size: 2rem; margin: 4px 0; }
+        .paper-slip .ps-name { font-weight: bold; font-size: 0.85rem; }
+        .paper-slip .ps-check { margin-top: 4px; color: green; }
+        .paper-slip .ps-serial { font-size: 0.55rem; color: #999; margin-top: 4px; }
+
+        /* Ballot box */
+        .green-box {
+            width: 232px;
+            background: linear-gradient(180deg, #2E7D32 0%, #1B5E20 100%);
+            border: 4px solid #0d3b0f;
+            border-radius: 0 0 16px 16px;
+            padding: 16px;
+            text-align: center;
+            color: #fff;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.95rem;
+            margin-top: -6px;
+        }
+        .box-slit {
+            width: 100px;
+            height: 6px;
+            background: #0d3b0f;
+            border-radius: 3px;
+            margin: 0 auto 8px;
+        }
+
+        /* Success */
+        .done-msg {
+            display: none;
+            text-align: center;
+            margin-top: 24px;
+            padding: 20px;
+            background: #e8f5e9;
+            border: 3px solid #2E7D32;
+            border-radius: 16px;
+            max-width: 240px;
+        }
+        .done-msg h2 { color: #2E7D32; font-family: 'Fredoka One', cursive; margin-bottom: 8px; font-size: 1.3rem; }
+
+        /* Steps */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .steps-container-box {
+            background-color: #D2B48C; /* Light Dark Brown / Tan */
+            border: 3px solid #4A3728; /* Dark brown border */
+            border-radius: 32px;
+            padding: 48px;
+            box-shadow: 8px 8px 0px rgba(74, 55, 40, 0.15);
+            margin: 40px 0;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .steps-container-box { padding: 24px; border-radius: 24px; }
+            .info-cards-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
+
+    <!-- Translation -->
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,hi,ta,te,bn,mr,gu,kn,ml,pa', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+      }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo">
+            <img src="assets/evm.svg" alt="Logo" width="30">
+            VoterSaathi
+        </div>
+        <div class="hamburger" id="hamburgerMenu">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="how_to_vote.html" class="active">How to Vote</a>
+            <a href="register.html">Register</a>
+            <a href="help.html">Help</a>
+            <a href="guide.html">Guide</a>
+        </div>
+        <div class="nav-right">
+            <div id="google_translate_element" style="display:none;" class="translate-dropdown"></div>
+            <button class="pill-btn outlined" onclick="document.getElementById('google_translate_element').style.display='block'" style="padding: 6px 16px; font-size: 14px;">🌐 Translate</button>
+            <a href="https://www.linkedin.com/in/rupesh-20-yadav/" target="_blank" class="icon-btn" title="Developer Profile">👤</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container" style="padding-top: 120px; padding-bottom: 60px;">
+    <div class="sticky-note" style="margin-bottom: 32px; text-align: center;">Try Voting! (Practice Only) 🗳️</div>
+    
+    <div class="evm-layout">
+        <!-- LEFT: Ballot Unit -->
+        <div class="ballot-unit">
+            <div class="red-light" id="redLight"></div>
+            <div class="ballot-title">⬛ BALLOT UNIT ⬛</div>
+
+            <div class="cand-row">
+                <span class="num">1</span>
+                <span class="sym">🪷</span>
+                <div class="info"><div class="cname">Ramesh Kumar</div><div class="cparty">Kamal Party</div></div>
+                <button class="blue-btn" id="b1" onclick="handleVote('Ramesh Kumar','🪷')"></button>
+            </div>
+
+            <div class="cand-row">
+                <span class="num">2</span>
+                <span class="sym">✋</span>
+                <div class="info"><div class="cname">Priya Sharma</div><div class="cparty">Haath Party</div></div>
+                <button class="blue-btn" id="b2" onclick="handleVote('Priya Sharma','✋')"></button>
+            </div>
+
+            <div class="cand-row">
+                <span class="num">3</span>
+                <span class="sym">🚲</span>
+                <div class="info"><div class="cname">Sunil Yadav</div><div class="cparty">Cycle Party</div></div>
+                <button class="blue-btn" id="b3" onclick="handleVote('Sunil Yadav','🚲')"></button>
+            </div>
+
+            <div class="cand-row">
+                <span class="num">4</span>
+                <span class="sym">🐘</span>
+                <div class="info"><div class="cname">Meera Patel</div><div class="cparty">Haathi Party</div></div>
+                <button class="blue-btn" id="b4" onclick="handleVote('Meera Patel','🐘')"></button>
+            </div>
+
+            <div class="cand-row">
+                <span class="num">5</span>
+                <span class="sym">🌾</span>
+                <div class="info"><div class="cname">Arjun Singh</div><div class="cparty">Kisan Party</div></div>
+                <button class="blue-btn" id="b5" onclick="handleVote('Arjun Singh','🌾')"></button>
+            </div>
+
+            <div class="cand-row">
+                <span class="num">6</span>
+                <span class="sym">🚫</span>
+                <div class="info"><div class="cname">NOTA</div><div class="cparty">None Of The Above</div></div>
+                <button class="blue-btn" id="b6" onclick="handleVote('NOTA','🚫')"></button>
+            </div>
+        </div>
+
+        <!-- RIGHT: VVPAT + Ballot Box -->
+        <div class="vvpat-area">
+            <div class="vvpat-label">VVPAT MACHINE</div>
+            <div class="vvpat-box">
+                <div class="vvpat-glass">
+                    <div class="paper-slip" id="paperSlip">
+                        <div class="ps-title">VOTE SLIP</div>
+                        <div class="ps-sym" id="psSymbol"></div>
+                        <div class="ps-name" id="psName"></div>
+                        <div class="ps-check">✓ Recorded</div>
+                        <div class="ps-serial">SL: <span id="psSerial"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="green-box">
+                <div class="box-slit"></div>
+                📥 BALLOT BOX
+            </div>
+
+            <div class="done-msg" id="doneMsg">
+                <h2>✅ Vote Registered!</h2>
+                <p style="color:#555; margin-bottom: 8px;">Your practice vote has been counted.</p>
+                <p style="font-size: 0.85rem; color: #333;">Total Votes: <strong id="totalVotes">0</strong></p>
+                <button class="pill-btn" onclick="resetMachine()" style="background: #2E7D32; margin-top: 12px;">Vote Again 🔄</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voting Steps & Info -->
+    <div class="steps-container-box">
+        <div class="sticky-note" style="margin-bottom: 24px;">Voting Steps 📋</div>
+        <div class="steps-grid">
+            <div class="clay-card yellow">
+                <h3>Step 1: Enter Booth</h3>
+                <p class="text-muted">Go to your assigned polling booth with a valid ID. The officer will verify your name and mark your finger with indelible ink.</p>
+            </div>
+            <div class="clay-card pink">
+                <h3>Step 2: Press the Button</h3>
+                <p class="text-muted">Press the blue button next to your chosen candidate. A red light glows and you'll hear a long beep confirming your vote.</p>
+            </div>
+            <div class="clay-card blue">
+                <h3>Step 3: Check VVPAT</h3>
+                <p class="text-muted">A printed slip appears in the VVPAT window for 7 seconds showing who you voted for. Verify it before it drops into the sealed box.</p>
+            </div>
+            <div class="clay-card green">
+                <h3>Step 4: Done!</h3>
+                <p class="text-muted">Your vote is securely recorded. Leave the booth quietly. Your vote is secret — nobody can see who you voted for!</p>
+            </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="info-cards-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px;">
+            <div class="clay-card lavender">
+                <h3>What is VVPAT?</h3>
+                <p class="text-muted">Voter Verifiable Paper Audit Trail prints a slip with the candidate name & symbol for 7 seconds so you can verify your choice before it drops into a sealed box.</p>
+            </div>
+            <div class="clay-card" style="background: #FFF3E0; border-color: var(--orange);">
+                <h3>What is NOTA?</h3>
+                <p class="text-muted">None Of The Above allows voters to officially reject all candidates. Introduced in 2013 by the Supreme Court of India.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Chatbot Button -->
+<button class="chatbot-btn" id="chatbotToggle">🤖</button>
+<div class="chatbot-panel" id="chatbotPanel">
+    <div class="chat-header">
+        <h3 style="font-family:var(--font-heading);">VoteSaathi AI 🤖</h3>
+        <button class="icon-btn" id="chatbotClose" style="width:30px; height:30px; font-size:12px;">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+        <div class="chat-bubble ai">Hello! Ask me anything about Indian elections!</div>
+        <div id="typingIndicator" class="typing" style="display:none;">AI is thinking...</div>
+    </div>
+    <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="Type a message...">
+            <button id="micBtn">🎤</button>
+        <button id="sendBtn">➤</button>
+    </div>
+</div>
+
+<!-- IMPORTANT: Load script.js FIRST -->
+<script src="config.js"></script>
+<script src="script.js"></script>
+
+<!-- Then OVERRIDE the castVote/resetEVM with our enhanced version -->
+<script>
+    var evmVoteCount = 0;
+    var evmBusy = false;
+
+    // ===== BEEP SOUND =====
+    function evmBeep() {
+        try {
+            var ctx = new (window.AudioContext || window.webkitAudioContext)();
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            osc.frequency.value = 1000;
+            gain.gain.value = 0.4;
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + 1.5);
+        } catch(e) {
+            console.log('Audio error:', e);
+        }
+    }
+
+    // ===== VOTE HANDLER =====
+    function handleVote(name, symbol) {
+        if (evmBusy) return;
+        evmBusy = true;
+
+        // Disable all buttons
+        var allBtns = document.querySelectorAll('.blue-btn');
+        allBtns.forEach(function(b) { b.disabled = true; });
+
+        // 1) Red light ON
+        document.getElementById('redLight').classList.add('on');
+
+        // 2) BEEP
+        evmBeep();
+
+        // 3) Fill the slip
+        document.getElementById('psSymbol').textContent = symbol;
+        document.getElementById('psName').textContent = name;
+        document.getElementById('psSerial').textContent = Math.floor(10000 + Math.random() * 90000);
+
+        var slip = document.getElementById('paperSlip');
+
+        // 4) Slip slides DOWN into view (from above)
+        setTimeout(function() {
+            slip.style.transition = 'top 1s ease-out';
+            slip.style.top = '10px';
+        }, 600);
+
+        // 5) Slip stays visible for 4 seconds, then drops further down out of view
+        setTimeout(function() {
+            slip.style.transition = 'top 1.5s ease-in';
+            slip.style.top = '350px';
+        }, 5000);
+
+        // 6) After slip drops, show success
+        setTimeout(function() {
+            evmVoteCount++;
+            document.getElementById('totalVotes').textContent = evmVoteCount;
+            document.getElementById('doneMsg').style.display = 'block';
+            document.getElementById('redLight').classList.remove('on');
+        }, 6800);
+    }
+
+    // ===== RESET =====
+    function resetMachine() {
+        evmBusy = false;
+        var slip = document.getElementById('paperSlip');
+        slip.style.transition = 'none';
+        slip.style.top = '-160px';
+        document.getElementById('doneMsg').style.display = 'none';
+        var allBtns = document.querySelectorAll('.blue-btn');
+        allBtns.forEach(function(b) { b.disabled = false; });
+    }
+</script>
+
+</body>
+</html>
