@@ -7,7 +7,6 @@ import { validatePincode, calculateAge } from "./js/utils.js";
 
 // Configuration loaded from window.VOTER_CONFIG (Git Ignored)
 const CONFIG = window.VOTER_CONFIG;
-const GEMINI_API_KEY = CONFIG?.GEMINI_API_KEY || "";
 const firebaseConfig = CONFIG?.FIREBASE_CONFIG || {};
 
 // Initialize Firebase only if config exists
@@ -161,14 +160,14 @@ if (findBoothBtn) {
             if(document.getElementById('mpName')) document.getElementById('mpName').textContent = "Searching...";
 
             const prompt = `Provide electoral info for Indian pincode ${pincode} as JSON: {"mpName", "mlaName", "state", "chiefMinister", "nextElectionDate", "areaName", "mpConstituency"}`;
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
+            const response = await fetch(`/.netlify/functions/gemini`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                body: JSON.stringify({ prompt: prompt })
             });
             
             const data = await response.json();
-            const rawText = data.candidates[0].content.parts[0].text;
+            const rawText = data.response;
             const info = JSON.parse(rawText.replace(/```json|```/g, "").trim());
 
             // Update UI
@@ -326,14 +325,14 @@ async function handleSend() {
     }
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
+        const response = await fetch(`/.netlify/functions/gemini`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contents: [{ parts: [{ text: `You are VoterSaathi AI. Be brief: ${text}` }] }] })
+            body: JSON.stringify({ prompt: `You are VoterSaathi AI. Be brief: ${text}` })
         });
         
         const data = await response.json();
-        const aiResponse = data.candidates[0].content.parts[0].text;
+        const aiResponse = data.response;
         
         if(typingIndicator) typingIndicator.style.display = 'none';
         appendMessage(aiResponse, 'ai');
