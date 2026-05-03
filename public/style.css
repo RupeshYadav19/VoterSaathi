@@ -959,3 +959,104 @@ section {
 a, button, input[type="button"], input[type="submit"], .cursor-pointer, .pill-btn, .icon-btn, .candidate-btn, .chatbot-btn, .hamburger {
   cursor: url('./assets/cursor.png') 10 0, pointer !important;
 }
+
+/* ==========================================================================
+   NEW UI ADDITIONS (Toasts, Spinners, Dark Mode, Profile Dropdown)
+   ========================================================================== */
+
+/* Profile Dropdown */
+.profile-dropdown {
+  background: var(--white);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border: 1px solid var(--dashed-line);
+}
+
+/* Toasts */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  padding: 16px 24px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-clay);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 250px;
+  animation: slideInRight 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-left: 4px solid var(--dark-text);
+}
+
+.toast-success { border-color: var(--card-green); }
+.toast-error { border-color: var(--orange); }
+.toast-info { border-color: var(--card-blue); }
+
+.toast-message { font-weight: 700; }
+.toast-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--light-text); }
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Loading Spinners */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: currentColor;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-overlay-active {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.container-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  font-size: 32px;
+  color: var(--orange);
+}
+.container-spinner .spinner { width: 40px; height: 40px; border-width: 4px; }
+
+/* Dark Mode */
+body.dark-mode {
+  --bg-color: #121212;
+  --white: #1E1E1E;
+  --dark-text: #E0E0E0;
+  --light-text: #A0A0A0;
+  --dashed-line: #444;
+  --shadow-clay: 4px 6px 0px rgba(0,0,0,0.5);
+  --shadow-clay-hover: 6px 8px 0px rgba(0,0,0,0.6);
+  --card-pink: #8c5b49;
+  --card-blue: #5b648c;
+  --card-green: #52754f;
+  --card-lavender: #72627a;
+  --card-yellow: #8c8149;
+}
+
+body.dark-mode .section-dashboard, body.dark-mode .section-what, body.dark-mode .section-timeline, 
+body.dark-mode .section-guide, body.dark-mode .section-evm, body.dark-mode .section-day, body.dark-mode .section-help {
+  background-color: var(--bg-color);
+}
+

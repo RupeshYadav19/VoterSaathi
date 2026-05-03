@@ -1,20 +1,22 @@
 {
   "name": "votersaathi",
   "version": "1.0.0",
-  "description": "VoterSaathi Testing Setup",
+  "description": "India's Official Voter Guide",
   "main": "public/script.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "mkdir -p public/js && echo \"window.VOTER_CONFIG = { FIREBASE_CONFIG: { apiKey: 'AIzaSyBsig8D6YYHxj47VZHVpUWER6HEbCt70qU', authDomain: 'votersaathi-4f677.firebaseapp.com', projectId: 'votersaathi-4f677', storageBucket: 'votersaathi-4f677.firebasestorage.app', messagingSenderId: '573822959238', appId: '1:573822959238:web:2d75f9c5b8f57e37b31b07', measurementId: 'G-898FTMFDB0' } };\" > public/js/config.js",
+    "start": "npx http-server public -p 8080 -c-1"
+  },
+  "keywords": [],
+  "author": "RupeshYadav",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.24.0",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0"
-  },
-  "jest": {
-    "testEnvironment": "jsdom"
-  },
-  "dependencies": {
-    "node-fetch": "^2.7.0"
+    "@babel/preset-env": "^7.26.9",
+    "jest": "^29.7.0"
   }
 }

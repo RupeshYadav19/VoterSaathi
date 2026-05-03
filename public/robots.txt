@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://votersaathi.netlify.app/sitemap.xml
