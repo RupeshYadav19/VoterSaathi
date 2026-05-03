@@ -6,7 +6,7 @@
 import { login } from './firebase.js';
 
 // Global State
-let loginBtn, profileBtn, profileDropdown, navRight;
+let loginBtn, navRight;
 
 /**
  * Initializes the Auth UI components.
@@ -24,15 +24,13 @@ export const initAuthUI = () => {
     navRight.prepend(loginBtn);
     
     loginBtn.addEventListener('click', login);
-
-    loginBtn.addEventListener('click', login);
 };
 
-    updateProfileDropdown(null);
-};
-
+/**
+ * Reacts to auth state changes.
+ * @param {Object} user - User object.
+ */
 export const onAuthChange = (user) => {
-    updateProfileDropdown(user);
     const dashboardGrid = document.getElementById('dashboardGrid');
     const lockedOverlay = document.getElementById('lockedOverlay');
     
