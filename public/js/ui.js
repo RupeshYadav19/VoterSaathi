@@ -101,31 +101,19 @@ export const initUI = () => {
         });
     }
 
-    // Theme Toggle
-    const themeToggleBtn = document.createElement('button');
-    themeToggleBtn.className = 'icon-btn';
-    themeToggleBtn.id = 'themeToggleBtn';
-    themeToggleBtn.setAttribute('aria-label', 'Toggle Dark Mode');
-    themeToggleBtn.innerHTML = '🌙';
-    
-    const navRight = document.querySelector('.nav-right');
-    if (navRight) {
-        navRight.appendChild(themeToggleBtn);
-        
-        themeToggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            themeToggleBtn.innerHTML = isDark ? '☀️' : '🌙';
-            themeToggleBtn.setAttribute('aria-label', isDark ? 'Toggle Light Mode' : 'Toggle Dark Mode');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
-
-        // Load saved theme
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-            themeToggleBtn.innerHTML = '☀️';
-            themeToggleBtn.setAttribute('aria-label', 'Toggle Light Mode');
-        }
+    // Load saved theme on boot
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
     }
 };
 
+/**
+ * Toggles the site theme and saves preference.
+ * @returns {boolean} New theme state (true for dark).
+ */
+export const toggleTheme = () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    return isDark;
+};

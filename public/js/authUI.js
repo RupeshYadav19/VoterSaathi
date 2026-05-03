@@ -4,6 +4,7 @@
  */
 
 import { login } from './firebase.js';
+import { toggleTheme } from './ui.js';
 
 // Global State
 let loginBtn, profileBtn, profileDropdown, navRight;
@@ -15,7 +16,7 @@ export const initAuthUI = () => {
     navRight = document.querySelector('.nav-right');
     if (!navRight) return;
 
-    // Login Button (Check if already exists in HTML)
+    // Login Button
     loginBtn = document.getElementById('loginBtn');
     if (!loginBtn) {
         loginBtn = document.createElement('button');
@@ -30,8 +31,7 @@ export const initAuthUI = () => {
     loginBtn.addEventListener('click', login);
 
     // Profile Dropdown Setup
-    // Use existing developer icon button or create new one
-    profileBtn = document.querySelector('.nav-right .icon-btn');
+    profileBtn = document.getElementById('profileBtn');
     
     profileDropdown = document.createElement('div');
     profileDropdown.className = 'clay-card profile-dropdown';
@@ -64,15 +64,21 @@ export const initAuthUI = () => {
                 hideProfileDropdown();
             }
         });
-
-        // Close on escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && profileDropdown.style.display === 'block') {
-                hideProfileDropdown();
-                profileBtn.focus();
-            }
-        });
     }
+
+    // Assign global toggle function for the dropdown buttons
+    window.handleDropdownAction = (action) => {
+        if (action === 'toggleTheme') {
+            const isDark = toggleTheme();
+            updateProfileDropdown(null); // Refresh UI to show correct icon
+            // Re-fetch user if needed, but for now we can just refresh the content
+            // Actually, better to just update the button text/icon manually or re-run update
+            const auth = window.firebaseAuth; // Assuming exported
+            updateProfileDropdown(auth?.currentUser);
+        } else if (action === 'logout') {
+            login(); // firebase.js login handles both
+        }
+    };
 
     updateProfileDropdown(null);
 };
@@ -89,7 +95,6 @@ const toggleProfileDropdown = () => {
 const showProfileDropdown = () => {
     profileDropdown.style.display = 'block';
     profileBtn.setAttribute('aria-expanded', 'true');
-    // Force reflow for animation
     profileDropdown.offsetHeight;
     profileDropdown.style.opacity = '1';
     profileDropdown.style.transform = 'translateY(0)';
@@ -115,6 +120,10 @@ const hideProfileDropdown = () => {
 const updateProfileDropdown = (user) => {
     if (!profileDropdown) return;
     
+    const isDark = document.body.classList.contains('dark-mode');
+    const themeIcon = isDark ? '☀️' : '🌙';
+    const themeText = isDark ? 'Light Mode' : 'Dark Mode';
+
     if (user) {
         const safeName = (user.displayName || 'Voter').replace(/</g, "&lt;").replace(/>/g, "&gt;");
         const safeEmail = (user.email || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -124,8 +133,11 @@ const updateProfileDropdown = (user) => {
             <h3 style="margin-bottom: 4px; font-family: 'Nunito', sans-serif; font-weight: 800;">${safeName}</h3>
             <p style="font-size: 13px; color: #666; margin-bottom: 20px; word-break: break-all;">${safeEmail}</p>
             <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="pill-btn" onclick="handleDropdownAction('toggleTheme')" style="font-size:12px; background:var(--white); color:var(--dark-text); border:2px solid var(--dashed-line);">
+                    ${themeIcon} ${themeText}
+                </button>
                 <a href="https://www.linkedin.com/in/rupesh-20-yadav/" target="_blank" rel="noopener noreferrer" class="pill-btn" style="text-decoration:none; font-size:12px; background:var(--card-blue); color:black; border:2px solid black;">Connect on LinkedIn</a>
-                <button class="pill-btn" onclick="document.getElementById('loginBtn').click()" style="font-size:12px; background:#ff4444; color:white; border:none;">Logout</button>
+                <button class="pill-btn" onclick="handleDropdownAction('logout')" style="font-size:12px; background:#ff4444; color:white; border:none;">Logout</button>
             </div>
         `;
     } else {
@@ -133,7 +145,12 @@ const updateProfileDropdown = (user) => {
             <div style="font-size: 3rem; margin-bottom: 12px;" aria-hidden="true">👤</div>
             <h3 style="margin-bottom: 4px; font-family: 'Nunito', sans-serif; font-weight: 800;">Guest</h3>
             <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Not logged in</p>
-            <button class="pill-btn" onclick="document.getElementById('loginBtn').click()" style="font-size:12px; background:var(--orange); color:white; border:none;">Login Now</button>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="pill-btn" onclick="handleDropdownAction('toggleTheme')" style="font-size:12px; background:var(--white); color:var(--dark-text); border:2px solid var(--dashed-line);">
+                    ${themeIcon} ${themeText}
+                </button>
+                <button class="pill-btn" onclick="document.getElementById('loginBtn').click()" style="font-size:12px; background:var(--orange); color:white; border:none;">Login Now</button>
+            </div>
         `;
     }
 };
@@ -151,7 +168,6 @@ export const onAuthChange = (user) => {
         if (loginBtn) {
             loginBtn.textContent = "Logout";
             loginBtn.style.background = "#ff4444";
-            loginBtn.style.color = "white";
         }
         if (lockedOverlay) lockedOverlay.style.display = 'none';
         if (dashboardGrid) dashboardGrid.classList.remove('dashboard-locked');
@@ -159,7 +175,6 @@ export const onAuthChange = (user) => {
         if (loginBtn) {
             loginBtn.textContent = "Login";
             loginBtn.style.background = "var(--orange)";
-            loginBtn.style.color = "white";
         }
         if (lockedOverlay) lockedOverlay.style.display = 'flex';
         if (dashboardGrid) dashboardGrid.classList.add('dashboard-locked');
