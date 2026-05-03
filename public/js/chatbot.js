@@ -9,8 +9,8 @@ import { getCurrentUser, saveChatHistory, updateChatResponse } from './firebase.
 // Global State (will be assigned in initChatbot)
 let chatbotToggle, chatbotPanel, chatbotClose, sendBtn, chatInput, chatMessages, typingIndicator, micBtn;
 
-// Your Gemini API Key (Restricted to your domain)
-const GEMINI_API_KEY = window.VOTER_CONFIG?.FIREBASE_CONFIG?.apiKey || "AIzaSyDD_n_VbPJcj9O5m-vgnD_0l61PHZwJ0fE"; 
+// Model selection handled by middleman proxy
+const GEMINI_PROXY_URL = "/.netlify/functions/gemini"; 
 
 /**
  * Initializes the Chatbot UI and listeners.
@@ -114,22 +114,21 @@ const handleSend = async () => {
     const chatDocId = await saveChatHistory(text);
 
     try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-        const response = await fetch(url, {
+        const response = await fetch(GEMINI_PROXY_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
-                contents: [{ parts: [{ text: `You are VoterSaathi AI. Be brief: ${text}` }] }] 
+                prompt: `You are VoterSaathi AI. Be brief: ${text}` 
             })
         });
         
         const data = await response.json();
         
         if (!response.ok) {
-            throw new Error(data.error?.message || "API Error");
+            throw new Error(data.error || "Middleman API Error");
         }
 
-        const aiResponse = data.candidates[0].content.parts[0].text;
+        const aiResponse = data.response;
         
         if(typingIndicator) typingIndicator.style.display = 'none';
         appendMessage(aiResponse, 'ai');

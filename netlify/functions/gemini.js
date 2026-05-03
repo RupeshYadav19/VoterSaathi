@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+// Built-in fetch is available in Node.js 18+ (Netlify default)
 
 exports.handler = async (event, context) => {
     // Only allow POST requests
@@ -17,8 +17,8 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // Using the user-preferred model: gemini-3-flash-preview
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`;
+        // Using the stable model: gemini-1.5-flash
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
         
         const response = await fetch(url, {
             method: 'POST',
