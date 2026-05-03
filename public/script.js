@@ -4,18 +4,29 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signO
 import { getFirestore, collection, addDoc, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 import { getFunctions } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-functions.js";
 import { validatePincode, calculateAge } from "./js/utils.js";
-import { CONFIG } from "./js/config.js";
 
-// Configuration loaded from js/config.js (Git Ignored)
-const GEMINI_API_KEY = CONFIG.GEMINI_API_KEY;
-const firebaseConfig = CONFIG.FIREBASE_CONFIG;
+let CONFIG;
+try {
+    const configModule = await import("./js/config.js");
+    CONFIG = configModule.CONFIG;
+} catch (e) {
+    console.error("Config missing. If this is Netlify, check your Build Command.", e);
+    // Fallback or warning can be added here
+}
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const functions = getFunctions(app);
+// Configuration
+const GEMINI_API_KEY = CONFIG?.GEMINI_API_KEY || "";
+const firebaseConfig = CONFIG?.FIREBASE_CONFIG || {};
+
+// Initialize Firebase only if config exists
+let app, analytics, auth, db, functions;
+if (CONFIG) {
+    app = initializeApp(firebaseConfig);
+    analytics = getAnalytics(app);
+    auth = getAuth(app);
+    db = getFirestore(app);
+    functions = getFunctions(app);
+}
 
 // 1. Core Logic: Mobile Menu
 const hamburgerMenu = document.getElementById('hamburgerMenu');
