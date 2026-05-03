@@ -17,8 +17,8 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // We use gemini-1.5-flash-latest for maximum stability and speed
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+        // Using the user-preferred model: gemini-3-flash-preview
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`;
         
         const response = await fetch(url, {
             method: 'POST',
