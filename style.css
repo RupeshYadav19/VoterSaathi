@@ -282,34 +282,67 @@ section {
 }
 
 /* Mobile Nav */
+/* Mobile Nav - Horizontal & Compact */
+/* Mobile Nav - Horizontal & Compact */
 @media (max-width: 768px) {
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 64px;
-    left: 0;
-    width: 100%;
-    background-color: var(--bg-color);
-    flex-direction: column;
-    padding: 24px;
-    gap: 16px;
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+  .nav-container {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0 8px;
+    gap: 4px;
   }
-  
-  .nav-links.open {
-    display: flex;
+
+  .nav-links {
+    display: flex !important;
+    position: static;
+    width: auto;
+    background-color: transparent;
+    flex-direction: row;
+    padding: 0;
+    gap: 4px;
+    box-shadow: none;
+    margin: 0;
   }
   
   .nav-links a {
-    background: var(--white);
-    padding: 16px;
-    border-radius: 12px;
-    box-shadow: var(--shadow-clay);
-    text-align: center;
+    background: transparent;
+    padding: 4px 6px;
+    font-size: 0.9rem; /* Slightly larger as requested */
+    box-shadow: none;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  .nav-links a.active {
+    border-width: 1px;
+    box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
   }
   
   .hamburger {
-    display: flex;
+    display: none !important;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem; /* A bit larger */
+    gap: 4px;
+    min-width: fit-content;
+  }
+  .nav-logo img {
+    width: 24px;
+  }
+  
+  .nav-right {
+    gap: 6px;
+  }
+  .nav-right .pill-btn {
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+  }
+  
+  .icon-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
   }
 }
 
