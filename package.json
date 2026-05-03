@@ -1,0 +1,17 @@
+{
+  "name": "votersaathi",
+  "version": "1.0.0",
+  "description": "VoterSaathi Testing Setup",
+  "main": "public/script.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.24.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  }
+}

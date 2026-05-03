@@ -66,25 +66,27 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- Navbar -->
-<nav class="navbar">
+<header>
+<nav class="navbar" aria-label="Main Navigation">
     <div class="container nav-container">
         <div class="nav-logo">
             <img src="assets/evm.svg" alt="Logo" width="30">
             VoterSaathi
         </div>
         
-        <div class="hamburger" id="hamburgerMenu">
+        <button class="hamburger" id="hamburgerMenu" aria-label="Toggle navigation menu" aria-expanded="false">
             <span></span><span></span><span></span>
-        </div>
+        </button>
         
         <div class="nav-links" id="navLinks">
             <a href="index.html">Home</a>
             <a href="how_to_vote.html">How to Vote</a>
             <a href="register.html">Register</a>
             <a href="help.html">Help</a>
-            <a href="guide.html" class="active">Guide</a>
+            <a href="guide.html" aria-current="page" class="active">Guide</a>
         </div>
         
         <div class="nav-right">
@@ -94,9 +96,9 @@
         </div>
     </div>
 </nav>
+</header>
 
-
-
+<main id="main-content" class="container" style="padding-top: 120px; padding-bottom: 60px;">
 <!-- Section 4: Election Timeline -->
 <section id="timeline" class="section-timeline">
     <div class="container">
@@ -242,17 +244,17 @@
         </div>
     </div>
 </section>
-
+</main>
 
 
 <!-- Chatbot Button -->
-<button class="chatbot-btn" id="chatbotToggle">🤖</button>
+<button class="chatbot-btn" id="chatbotToggle" aria-label="Open AI Chatbot">🤖</button>
 
 <!-- Chatbot Panel -->
-<div class="chatbot-panel" id="chatbotPanel">
+<div class="chatbot-panel" id="chatbotPanel" aria-label="AI Chatbot Panel">
     <div class="chat-header">
-        <h3 style="font-family:var(--font-heading);">VoteSaathi AI 🤖</h3>
-        <button class="icon-btn" id="chatbotClose" style="width:30px; height:30px; font-size:12px;">✕</button>
+        <h2 style="font-family:var(--font-heading);">VoteSaathi AI 🤖</h2>
+        <button class="icon-btn" id="chatbotClose" style="width:30px; height:30px; font-size:12px;" aria-label="Close Chatbot">✕</button>
     </div>
     
     <div class="chat-messages" id="chatMessages">
@@ -271,13 +273,12 @@
     </div>
     
     <div class="chat-input">
-        <input type="text" id="chatInput" placeholder="Type a message...">
-        <button id="micBtn">🎤</button>
-        <button id="sendBtn">➤</button>
+        <input type="text" id="chatInput" placeholder="Type a message..." aria-label="Chat input">
+        <button id="micBtn" aria-label="Start voice input">🎤</button>
+        <button id="sendBtn" aria-label="Send message">➤</button>
     </div>
 </div>
 
-    <script src="config.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js?v=2"></script>
 </body>
 </html>

@@ -172,21 +172,23 @@
 </head>
 
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Navbar -->
-    <nav class="navbar">
+    <header>
+        <nav class="navbar" aria-label="Main Navigation">
         <div class="container nav-container">
             <div class="nav-logo">
                 <img src="assets/evm.svg" alt="Logo" width="30">
                 VoterSaathi
             </div>
 
-            <div class="hamburger" id="hamburgerMenu">
+            <button class="hamburger" id="hamburgerMenu" aria-label="Toggle navigation menu" aria-expanded="false">
                 <span></span><span></span><span></span>
-            </div>
+            </button>
 
             <div class="nav-links" id="navLinks">
-                <a href="index.html" class="active">Home</a>
+                <a href="index.html" aria-current="page" class="active">Home</a>
                 <a href="how_to_vote.html">How to Vote</a>
                 <a href="register.html">Register</a>
                 <a href="help.html">Help</a>
@@ -201,22 +203,24 @@
                 <a href="https://www.linkedin.com/in/rupesh-20-yadav/" target="_blank" class="icon-btn" title="Developer Profile">👤</a>
             </div>
         </div>
-    </nav>
+        </nav>
+    </header>
 
-    <!-- Section 1: Hero -->
-    <section id="hero" class="hero">
-        <div class="container hero-grid">
-            <div>
-                <div class="pill-tag text-orange" style="border: 1px solid var(--orange); margin-bottom:16px;">🇮🇳
-                    India's Official Voter Guide</div>
-                <h1 class="hero-title">Your <span class="text-orange">Vote</span>, <br>Your Voice! 🗳️</h1>
+    <main id="main-content">
+        <!-- Section 1: Hero -->
+        <section id="hero" class="hero" aria-labelledby="hero-heading">
+            <div class="container hero-grid">
+                <div>
+                    <div class="pill-tag text-orange" style="border: 1px solid var(--orange); margin-bottom:16px;">🇮🇳
+                        India's Official Voter Guide</div>
+                    <h1 id="hero-heading" class="hero-title">Your <span class="text-orange">Vote</span>, <br>Your Voice! 🗳️</h1>
                 <p class="hero-body text-muted">Everything you need to know about Indian elections — simple, fun &
                     clear.</p>
 
                 <div class="pincode-card">
-                    <span style="padding:0 16px;">📍</span>
-                    <input type="text" id="pincodeInput" placeholder="Enter your pincode..." maxlength="6">
-                    <button class="pill-btn" id="findBoothBtn">Find →</button>
+                    <span style="padding:0 16px;" aria-hidden="true">📍</span>
+                    <input type="text" id="pincodeInput" placeholder="Enter your pincode..." maxlength="6" aria-label="Enter your 6-digit Indian Pincode">
+                    <button class="pill-btn" id="findBoothBtn" aria-label="Find booth based on pincode">Find →</button>
                 </div>
                 <p class="font-sticky text-muted"
                     style="margin-left: 16px; transform: rotate(-2deg); display: inline-block;">We'll show your
@@ -410,8 +414,8 @@
             <div class="election-grid">
                 <!-- Lok Sabha Card -->
                 <div class="clay-card blue election-card" id="card-loksabha" onclick="toggleFlowchart('loksabha')"
-                    style="cursor:pointer; transition: all 0.3s;">
-                    <div style="font-size:3rem; margin-bottom:16px;">🏛️</div>
+                    style="cursor:pointer; transition: all 0.3s;" role="button" tabindex="0" onkeypress="if(event.key === 'Enter' || event.key === ' ') toggleFlowchart('loksabha')">
+                    <div style="font-size:3rem; margin-bottom:16px;" aria-hidden="true">🏛️</div>
                     <h2>Lok Sabha</h2>
                     <p class="text-muted">National parliament election held every 5 years</p>
                     <div>
@@ -424,8 +428,8 @@
 
                 <!-- Vidhan Sabha Card -->
                 <div class="clay-card green election-card" id="card-vidhansabha"
-                    onclick="toggleFlowchart('vidhansabha')" style="cursor:pointer; transition: all 0.3s;">
-                    <div style="font-size:3rem; margin-bottom:16px;">🏢</div>
+                    onclick="toggleFlowchart('vidhansabha')" style="cursor:pointer; transition: all 0.3s;" role="button" tabindex="0" onkeypress="if(event.key === 'Enter' || event.key === ' ') toggleFlowchart('vidhansabha')">
+                    <div style="font-size:3rem; margin-bottom:16px;" aria-hidden="true">🏢</div>
                     <h2>Vidhan Sabha</h2>
                     <p class="text-muted">State assembly elections — your state government</p>
                     <div>
@@ -438,8 +442,8 @@
 
                 <!-- Local Body Card -->
                 <div class="clay-card pink election-card" id="card-localbody" onclick="toggleFlowchart('localbody')"
-                    style="cursor:pointer; transition: all 0.3s;">
-                    <div style="font-size:3rem; margin-bottom:16px;">🏘️</div>
+                    style="cursor:pointer; transition: all 0.3s;" role="button" tabindex="0" onkeypress="if(event.key === 'Enter' || event.key === ' ') toggleFlowchart('localbody')">
+                    <div style="font-size:3rem; margin-bottom:16px;" aria-hidden="true">🏘️</div>
                     <h2>Local Body</h2>
                     <p class="text-muted">Municipal & panchayat elections — your city & village</p>
                     <div>
@@ -595,7 +599,8 @@
             </div>
 
         </div>
-    </section>
+        </section>
+    </main>
 
     <style>
         /* ===== Flowchart Panels ===== */
@@ -852,13 +857,13 @@
     </script>
 
     <!-- Chatbot Button -->
-    <button class="chatbot-btn" id="chatbotToggle">🤖</button>
+    <button class="chatbot-btn" id="chatbotToggle" aria-label="Open AI Chatbot">🤖</button>
 
     <!-- Chatbot Panel -->
-    <div class="chatbot-panel" id="chatbotPanel">
+    <div class="chatbot-panel" id="chatbotPanel" aria-label="AI Chatbot Panel">
         <div class="chat-header">
-            <h3 style="font-family:var(--font-heading);">VoteSaathi AI 🤖</h3>
-            <button class="icon-btn" id="chatbotClose" style="width:30px; height:30px; font-size:12px;">✕</button>
+            <h2 style="font-family:var(--font-heading);">VoteSaathi AI 🤖</h2>
+            <button class="icon-btn" id="chatbotClose" style="width:30px; height:30px; font-size:12px;" aria-label="Close Chatbot">✕</button>
         </div>
 
         <div class="chat-messages" id="chatMessages">
@@ -871,17 +876,17 @@
             </div>
         </div>
 
-        <div style="padding: 0 16px 8px; display:flex; gap:8px; overflow-x:auto;">
-            <span class="pill-tag" onclick="sendSuggestion('How to register?')"
-                style="cursor:pointer; white-space:nowrap;">How to register? 📝</span>
-            <span class="pill-tag" onclick="sendSuggestion('What is NOTA?')"
-                style="cursor:pointer; white-space:nowrap;">What is NOTA? 🗳️</span>
+        <div class="chat-suggestions" style="padding: 0 16px 8px; display:flex; gap:8px; overflow-x:auto;">
+            <button class="pill-tag" onclick="sendSuggestion('How to register?')"
+                style="cursor:pointer; white-space:nowrap; border:none; font-family:inherit;" aria-label="Suggested question: How to register?">How to register? 📝</button>
+            <button class="pill-tag" onclick="sendSuggestion('What is NOTA?')"
+                style="cursor:pointer; white-space:nowrap; border:none; font-family:inherit;" aria-label="Suggested question: What is NOTA?">What is NOTA? 🗳️</button>
         </div>
 
         <div class="chat-input">
-            <input type="text" id="chatInput" placeholder="Type a message...">
-            <button id="micBtn">🎤</button>
-            <button id="sendBtn">➤</button>
+            <input type="text" id="chatInput" placeholder="Type a message..." aria-label="Chat input">
+            <button id="micBtn" aria-label="Start voice input">🎤</button>
+            <button id="sendBtn" aria-label="Send message">➤</button>
         </div>
     </div>
 
@@ -893,7 +898,6 @@
             });
         }
     </script>
-    <script src="config.js"></script>
     <script type="module" src="script.js?v=2"></script>
 
 

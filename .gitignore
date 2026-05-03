@@ -5,3 +5,4 @@ node_modules/
 firebase-debug.log
 firebase-debug.*.log
 config.js
+public/js/config.js

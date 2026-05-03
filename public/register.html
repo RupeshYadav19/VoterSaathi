@@ -97,23 +97,25 @@
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- Navbar -->
-<nav class="navbar">
+<header>
+<nav class="navbar" aria-label="Main Navigation">
     <div class="container nav-container">
         <div class="nav-logo">
             <img src="assets/evm.svg" alt="Logo" width="30">
             VoterSaathi
         </div>
         
-        <div class="hamburger" id="hamburgerMenu">
+        <button class="hamburger" id="hamburgerMenu" aria-label="Toggle navigation menu" aria-expanded="false">
             <span></span><span></span><span></span>
-        </div>
+        </button>
         
         <div class="nav-links" id="navLinks">
             <a href="index.html">Home</a>
             <a href="how_to_vote.html">How to Vote</a>
-            <a href="register.html" class="active">Register</a>
+            <a href="register.html" aria-current="page" class="active">Register</a>
             <a href="help.html">Help</a>
             <a href="guide.html">Guide</a>
         </div>
@@ -125,8 +127,9 @@
         </div>
     </div>
 </nav>
+</header>
 
-<main class="container" style="padding-top: 120px; padding-bottom: 60px;">
+<main id="main-content" class="container" style="padding-top: 120px; padding-bottom: 60px;">
     <!-- Header -->
     <header style="text-align: center; margin-bottom: 40px;">
         <div class="clay-card yellow wobbly-border" style="display: inline-block; padding: 20px 40px; transform: rotate(-1deg); border: 3px solid #000;">
@@ -212,8 +215,9 @@
                 </h2>
                 <p style="margin-bottom: 20px; color: #666;">Enter your date of birth to check if you're eligible!</p>
                 <div style="display: flex; flex-direction: column; gap: 12px;">
-                    <input type="date" id="dobInput" style="padding: 12px; border-radius: 12px; border: 2px solid #000; font-family: inherit;">
-                    <button class="pill-btn" onclick="checkEligibility()" style="width: 100%; padding: 12px; background: #000; color: #fff;">Check Now</button>
+                    <label for="dobInput" class="visually-hidden" style="display:none;">Date of Birth</label>
+                    <input type="date" id="dobInput" style="padding: 12px; border-radius: 12px; border: 2px solid #000; font-family: inherit;" aria-label="Date of Birth">
+                    <button class="pill-btn" onclick="checkEligibility()" style="width: 100%; padding: 12px; background: #000; color: #fff;" aria-label="Check Eligibility">Check Now</button>
                 </div>
                 <p id="eligibilityResult" style="margin-top: 16px; font-weight: bold; text-align: center; min-height: 24px;"></p>
             </div>
@@ -225,8 +229,7 @@
     </div>
 </main>
 
-<script src="config.js"></script>
-<script src="script.js"></script>
+<script type="module" src="script.js?v=2"></script>
 <script>
     function checkEligibility() {
         const dob = document.getElementById('dobInput').value;

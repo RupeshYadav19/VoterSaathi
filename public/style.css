@@ -26,6 +26,46 @@
   --font-hindi: 'Baloo 2', sans-serif;
   
   --padding-card: 24px;
+  --focus-ring: 3px solid var(--orange);
+}
+
+/* Accessibility: Visible Focus States */
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+}
+
+/* Skip to Main Content */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 20px;
+  background: var(--dark-text);
+  color: var(--white);
+  padding: 12px 24px;
+  z-index: 10000;
+  border-radius: 0 0 12px 12px;
+  transition: top 0.3s ease;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: none;
+}
+
+/* Screen Reader Only Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Reset & Base */
@@ -147,6 +187,11 @@ section {
 
 .pill-btn.outlined:hover {
   background-color: rgba(232, 98, 42, 0.1);
+}
+
+.pill-btn:focus-visible {
+  outline: 3px solid var(--dark-text);
+  outline-offset: 2px;
 }
 
 /* Navbar */
@@ -281,68 +326,83 @@ section {
   transition: all var(--transition);
 }
 
-/* Mobile Nav */
-/* Mobile Nav - Horizontal & Compact */
-/* Mobile Nav - Horizontal & Compact */
+/* Mobile Nav - Two-row compact layout */
 @media (max-width: 768px) {
-  .nav-container {
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    padding: 0 8px;
-    gap: 4px;
+  .navbar {
+    height: auto;
+    padding: 8px 0;
   }
 
+  .nav-container {
+    flex-wrap: wrap;
+    padding: 0 12px;
+    gap: 0;
+  }
+
+  /* Row 1: Logo on left, actions on right */
+  .nav-logo {
+    font-size: 1.15rem;
+    gap: 6px;
+    order: 1;
+  }
+  .nav-logo img {
+    width: 22px;
+  }
+
+  .nav-right {
+    order: 2;
+    gap: 6px;
+    margin-left: auto;
+  }
+  .nav-right .pill-btn {
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+  }
+
+  .icon-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  /* Row 2: Horizontally scrollable nav links */
   .nav-links {
     display: flex !important;
     position: static;
-    width: auto;
+    order: 3;
+    width: 100%;
     background-color: transparent;
     flex-direction: row;
-    padding: 0;
-    gap: 4px;
+    padding: 6px 0 2px;
+    gap: 6px;
     box-shadow: none;
     margin: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
   }
-  
+  .nav-links::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
   .nav-links a {
     background: transparent;
-    padding: 4px 6px;
-    font-size: 0.9rem; /* Slightly larger as requested */
+    padding: 4px 10px;
+    font-size: 0.78rem;
     box-shadow: none;
     border-radius: 6px;
     white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .nav-links a.active {
-    border-width: 1px;
+    border-width: 1.5px;
     box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
-  }
-  
-  .hamburger {
-    display: none !important;
+    padding: 4px 10px;
   }
 
-  .nav-logo {
-    font-size: 1.2rem; /* A bit larger */
-    gap: 4px;
-    min-width: fit-content;
-  }
-  .nav-logo img {
-    width: 24px;
-  }
-  
-  .nav-right {
-    gap: 6px;
-  }
-  .nav-right .pill-btn {
-    padding: 4px 6px !important;
-    font-size: 11px !important;
-  }
-  
-  .icon-btn {
-    width: 34px;
-    height: 34px;
-    font-size: 14px;
+  .hamburger {
+    display: none !important;
   }
 }
 
