@@ -1,7 +1,7 @@
 // VoterSaathi - Configuration Template
-// Copy this file to 'config.js' and add your actual keys.
+// Copy this file to 'config.js' and add your actual Firebase keys.
+// Gemini API is handled securely via Netlify Functions.
 window.VOTER_CONFIG = {
-    GEMINI_API_KEY: "YOUR_GEMINI_API_KEY_HERE",
     FIREBASE_CONFIG: {
         apiKey: "YOUR_FIREBASE_API_KEY",
         authDomain: "YOUR_PROJECT.firebaseapp.com",
