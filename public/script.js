@@ -161,7 +161,7 @@ if (findBoothBtn) {
             if(document.getElementById('mpName')) document.getElementById('mpName').textContent = "Searching...";
 
             const prompt = `Provide electoral info for Indian pincode ${pincode} as JSON: {"mpName", "mlaName", "state", "chiefMinister", "nextElectionDate", "areaName", "mpConstituency"}`;
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`, {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
@@ -326,7 +326,7 @@ async function handleSend() {
     }
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ contents: [{ parts: [{ text: `You are VoterSaathi AI. Be brief: ${text}` }] }] })
