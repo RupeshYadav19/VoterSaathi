@@ -1065,24 +1065,5 @@ a, button, input[type="button"], input[type="submit"], .cursor-pointer, .pill-bt
 }
 .container-spinner .spinner { width: 40px; height: 40px; border-width: 4px; }
 
-/* Dark Mode */
-body.dark-mode {
-  --bg-color: #121212;
-  --white: #1E1E1E;
-  --dark-text: #E0E0E0;
-  --light-text: #A0A0A0;
-  --dashed-line: #444;
-  --shadow-clay: 4px 6px 0px rgba(0,0,0,0.5);
-  --shadow-clay-hover: 6px 8px 0px rgba(0,0,0,0.6);
-  --card-pink: #8c5b49;
-  --card-blue: #5b648c;
-  --card-green: #52754f;
-  --card-lavender: #72627a;
-  --card-yellow: #8c8149;
-}
 
-body.dark-mode .section-dashboard, body.dark-mode .section-what, body.dark-mode .section-timeline, 
-body.dark-mode .section-guide, body.dark-mode .section-evm, body.dark-mode .section-day, body.dark-mode .section-help {
-  background-color: var(--bg-color);
-}
 

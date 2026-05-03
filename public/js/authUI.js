@@ -4,11 +4,10 @@
  */
 
 import { login } from './firebase.js';
-import { toggleTheme } from './ui.js';
 
 // Global State
 let loginBtn, profileBtn, profileDropdown, navRight;
-let currentUser = null; // Track current user to prevent UI resets
+let currentUser = null; // Track current user
 
 /**
  * Initializes the Auth UI components.
@@ -67,13 +66,10 @@ export const initAuthUI = () => {
         });
     }
 
-    // Assign global toggle function for the dropdown buttons
+    // Assign global toggle function
     window.handleDropdownAction = (action) => {
-        if (action === 'toggleTheme') {
-            toggleTheme();
-            updateProfileDropdown(currentUser); // Refresh UI with current user state
-        } else if (action === 'logout') {
-            login(); // firebase.js login handles both login and logout
+        if (action === 'logout') {
+            login(); // handles both
         }
     };
 
@@ -117,10 +113,6 @@ const hideProfileDropdown = () => {
 const updateProfileDropdown = (user) => {
     if (!profileDropdown) return;
     
-    const isDark = document.body.classList.contains('dark-mode');
-    const themeIcon = isDark ? '☀️' : '🌙';
-    const themeText = isDark ? 'Light Mode' : 'Dark Mode';
-
     if (user) {
         const safeName = (user.displayName || 'Voter').replace(/</g, "&lt;").replace(/>/g, "&gt;");
         const safeEmail = (user.email || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -130,9 +122,6 @@ const updateProfileDropdown = (user) => {
             <h3 style="margin-bottom: 4px; font-family: 'Nunito', sans-serif; font-weight: 800;">${safeName}</h3>
             <p style="font-size: 13px; color: #666; margin-bottom: 20px; word-break: break-all;">${safeEmail}</p>
             <div style="display: flex; flex-direction: column; gap: 10px;">
-                <button class="pill-btn" onclick="handleDropdownAction('toggleTheme')" style="font-size:12px; background:var(--white); color:var(--dark-text); border:2px solid var(--dashed-line);">
-                    ${themeIcon} ${themeText}
-                </button>
                 <a href="https://www.linkedin.com/in/rupesh-20-yadav/" target="_blank" rel="noopener noreferrer" class="pill-btn" style="text-decoration:none; font-size:12px; background:var(--card-blue); color:black; border:2px solid black;">Connect on LinkedIn</a>
                 <button class="pill-btn" onclick="handleDropdownAction('logout')" style="font-size:12px; background:#ff4444; color:white; border:none;">Logout</button>
             </div>
@@ -143,9 +132,6 @@ const updateProfileDropdown = (user) => {
             <h3 style="margin-bottom: 4px; font-family: 'Nunito', sans-serif; font-weight: 800;">Guest</h3>
             <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Not logged in</p>
             <div style="display: flex; flex-direction: column; gap: 10px;">
-                <button class="pill-btn" onclick="handleDropdownAction('toggleTheme')" style="font-size:12px; background:var(--white); color:var(--dark-text); border:2px solid var(--dashed-line);">
-                    ${themeIcon} ${themeText}
-                </button>
                 <button class="pill-btn" onclick="document.getElementById('loginBtn').click()" style="font-size:12px; background:var(--orange); color:white; border:none;">Login Now</button>
             </div>
         `;
@@ -157,7 +143,7 @@ const updateProfileDropdown = (user) => {
  * @param {Object} user - User object.
  */
 export const onAuthChange = (user) => {
-    currentUser = user; // Store user globally in this module
+    currentUser = user;
     updateProfileDropdown(user);
     const dashboardGrid = document.getElementById('dashboardGrid');
     const lockedOverlay = document.getElementById('lockedOverlay');

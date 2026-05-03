@@ -78,7 +78,7 @@ export const toggleContainerLoading = (container, isLoading) => {
 };
 
 /**
- * Initializes generic UI interactions like mobile menu and theme toggle.
+ * Initializes generic UI interactions like mobile menu.
  */
 export const initUI = () => {
     // Mobile Menu
@@ -101,19 +101,7 @@ export const initUI = () => {
         });
     }
 
-    // Load saved theme on boot
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-    }
-};
-
-/**
- * Toggles the site theme and saves preference.
- * @returns {boolean} New theme state (true for dark).
- */
-export const toggleTheme = () => {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    return isDark;
+    // Always clear dark-mode if previously set
+    document.body.classList.remove('dark-mode');
+    localStorage.removeItem('theme');
 };
