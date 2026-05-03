@@ -5,16 +5,8 @@ import { getFirestore, collection, addDoc, doc, setDoc, serverTimestamp } from "
 import { getFunctions } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-functions.js";
 import { validatePincode, calculateAge } from "./js/utils.js";
 
-let CONFIG;
-try {
-    const configModule = await import("./js/config.js");
-    CONFIG = configModule.CONFIG;
-} catch (e) {
-    console.error("Config missing. If this is Netlify, check your Build Command.", e);
-    // Fallback or warning can be added here
-}
-
-// Configuration
+// Configuration loaded from window.VOTER_CONFIG (Git Ignored)
+const CONFIG = window.VOTER_CONFIG;
 const GEMINI_API_KEY = CONFIG?.GEMINI_API_KEY || "";
 const firebaseConfig = CONFIG?.FIREBASE_CONFIG || {};
 

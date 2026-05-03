@@ -1,7 +1,6 @@
 // VoterSaathi - Configuration Template
 // Copy this file to 'config.js' and add your actual keys.
-
-export const CONFIG = {
+window.VOTER_CONFIG = {
     GEMINI_API_KEY: "YOUR_GEMINI_API_KEY_HERE",
     FIREBASE_CONFIG: {
         apiKey: "YOUR_FIREBASE_API_KEY",
